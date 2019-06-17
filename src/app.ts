@@ -5,19 +5,20 @@ import { GameScene } from "./scenes/game-scene"
 import { EndScene } from "./scenes/end-scene"
 
 const config: GameConfig = {
-    width: 1200,
-    height: 1000,
+    width: 1440,
+    height: 900,
     parent: "game",
     resolution: window.devicePixelRatio,
     scene: [BootScene, StartScene, GameScene, EndScene],
     input: {
-        keyboard: true
+        keyboard: true,
+        gamepad: true
     },
     physics: {
         default: "arcade",
         arcade: {
             debug: false, 
-            gravity: { y: 0 }
+            gravity: { y: 200 }
         }
     },
     render: { pixelArt: true }

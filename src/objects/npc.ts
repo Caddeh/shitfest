@@ -8,29 +8,31 @@ export class Npc extends Phaser.Physics.Arcade.Sprite{
         this.scene.add.existing(this)
         this.scene.physics.add.existing(this)
         this.setCollideWorldBounds(true)
+        this.body.onWorldBounds
 
         this.setGravityY(200)
-        this.setGravityX(200)
         this.setMaxVelocity(200)
+
+        setInterval( ()=> {
+            let x : number
+            
+                function getRandoInt(){
+                  return Phaser.Math.Between(0, 1)
+                } 
+    
+                x = getRandoInt()
+                //console.log(x)
+    
+               if (x == 0){
+                    this.setVelocityX(-125)
+               } else{
+                   this.setVelocityX(125)
+               }
+            } , 1500 )
+        
+        
         }
 
     public update() : void {
-        let x : number
-        function moveNpc(){
-
-            function getRandoInt(){
-               return Phaser.Math.Between(0, 1)
-            }
-            x = getRandoInt()
-            console.log(x)
-
-           if (x == 0){
-               console.log("going left")
-           } else{
-               console.log("going right")
-           }
-    }
-    moveNpc()
-
     }
 }

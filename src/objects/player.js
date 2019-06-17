@@ -1,32 +1,25 @@
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Player = /** @class */ (function (_super) {
-    __extends(Player, _super);
-    function Player(scene) {
-        var _this = _super.call(this, scene, 100, 450, "duif") || this;
-        _this.cursors = _this.scene.input.keyboard.createCursorKeys();
-        _this.scene.add.existing(_this);
-        _this.scene.physics.add.existing(_this);
-        _this.setCollideWorldBounds(true);
-        _this.setBounce(0);
-        _this.setDragX(600);
-        _this.setDragY(600);
-        return _this;
+export class Player extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene) {
+        super(scene, 650, 150, "duif1");
+        this.cursors = this.scene.input.keyboard.createCursorKeys();
+        // this.poopListener = () => this.handlePoopButton()
+        this.scene.add.existing(this);
+        this.scene.physics.add.existing(this);
+        document.addEventListener("joystick0button0", this.poopListener);
+        this.setCollideWorldBounds(true);
+        this.setBounce(0);
+        this.setDragX(100);
+        this.setDragY(600);
     }
-    Player.prototype.update = function () {
+    update() {
+        // keyboard controls
+        this.keyboardInput();
+        // gamepad controls
+        this.gamepadInput();
+    }
+    gamepadInput() {
+    }
+    keyboardInput() {
         if (this.cursors.left.isDown) {
             this.setVelocityX(-200);
             this.flipX = false;
@@ -37,26 +30,12 @@ var Player = /** @class */ (function (_super) {
         }
         if (this.cursors.up.isDown) {
             this.setVelocityY(-200);
-            this.flipY = false;
         }
-        else
-            (this.setVelocityY(0));
-        if (this.cursors.down.isDown) {
+        else if (this.cursors.down.isDown) {
             this.setVelocityY(200);
         }
-        /*function dropPoop() {
-            if(this.time.now > shootTime){
-                this.poop = poops.getFirst
-            }*/
         if (this.cursors.space.isDown) {
-            //this.dropPoop()
-            console.log("i pooped lmao");
+            console.log("I pooped lol");
         }
-    };
-    return Player;
-}(Phaser.Physics.Arcade.Sprite));
-exports.Player = Player;
-// jump when the body is touching the floor
-//let grounded = this.body.touching.down 
-//if (this.cursors.up.isDown && grounded) {
-//this.setVelocityY(-400)
+    }
+}
