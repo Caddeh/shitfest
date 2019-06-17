@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 //var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 var __extends = (this && this.__extends) || (function () {
@@ -47,4 +48,13 @@ function update() {
 }
 function render() {
     weapon.debug();
+=======
+export class Poop extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y) {
+        super(scene, x, y, "poop");
+        this.scene.physics.add.existing(this);
+        this.setGravityY(200);
+        this.setCollideWorldBounds(true);
+    }
+>>>>>>> fea109963957f3675a2766430964be4683e6d158
 }

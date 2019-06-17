@@ -1,47 +1,30 @@
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-require("phaser");
-var boot_scene_1 = require("./scenes/boot-scene");
-var start_scene_1 = require("./scenes/start-scene");
-var game_scene_1 = require("./scenes/game-scene");
-var end_scene_1 = require("./scenes/end-scene");
-var config = {
-    width: 1200,
-    height: 1000,
+import "phaser";
+import { BootScene } from "./scenes/boot-scene";
+import { StartScene } from "./scenes/start-scene";
+import { GameScene } from "./scenes/game-scene";
+import { EndScene } from "./scenes/end-scene";
+const config = {
+    width: 1440,
+    height: 900,
     parent: "game",
     resolution: window.devicePixelRatio,
-    scene: [boot_scene_1.BootScene, start_scene_1.StartScene, game_scene_1.GameScene, end_scene_1.EndScene],
+    scene: [BootScene, StartScene, GameScene, EndScene],
     input: {
-        keyboard: true
+        keyboard: true,
+        gamepad: true
     },
     physics: {
         default: "arcade",
         arcade: {
             debug: false,
-            gravity: { y: 0 }
+            gravity: { y: 200 }
         }
     },
     render: { pixelArt: true }
 };
-var Game = /** @class */ (function (_super) {
-    __extends(Game, _super);
-    function Game(config) {
-        return _super.call(this, config) || this;
+export class Game extends Phaser.Game {
+    constructor(config) {
+        super(config);
     }
-    return Game;
-}(Phaser.Game));
-exports.Game = Game;
-window.addEventListener("load", function () { return new Game(config); });
+}
+window.addEventListener("load", () => new Game(config));
