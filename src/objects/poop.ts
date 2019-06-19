@@ -1,4 +1,5 @@
-//var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game: any;
+var Phaser: any;
 
 
 function preload() {
@@ -19,16 +20,17 @@ export class Poop extends Phaser.Physics.Arcade.Sprite{
         this.setCollideWorldBounds(true)
             
         }
+    }
         
     function create() {
-        weapon = game.add.weapon(1, 'bullet');
+        weapon = game.add.weapon(1, 'poop');
         weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
         weapon.bulletAngleOffset = -90;
         weapon.bulletSpeed = 400;
         
         cursors = this.input.createCursorKeys();
 
-        fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+        fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     }
 
     function update() {
