@@ -1,10 +1,10 @@
 import { Player } from "../objects/player";
 import { Platform } from "../objects/platform";
 import { Npc } from "../objects/npc";
+import { AlphaBird } from "../objects/alphaBird";
 export class GameScene extends Phaser.Scene {
     constructor() {
         super({ key: "GameScene" });
-        this.age = 17;
         this.groundY = 550;
     }
     init() {
@@ -14,13 +14,19 @@ export class GameScene extends Phaser.Scene {
     }
     create() {
         let background = this.add.image(0, 0, 'background').setOrigin(0, 0);
-        // 11 STARS
-        //this.stars = this.physics.add.group({
-        // key: 'star',
-        // repeat: 11,
-        //setXY: { x: 12, y: 30, stepX: 70 },
-        // })
-        // add animation
+        // add animations
+        // alphabird animation
+        this.anims.create({
+            key: 'alphaFly',
+            frames: [
+                { key: 'alphaDuif1', frame: 1 },
+                { key: 'alphaDuif2', frame: 2 },
+                { key: 'alphaDuif3', frame: 3 }
+            ],
+            frameRate: 10,
+            repeat: -1
+        });
+        //player animation
         this.anims.create({
             key: 'fly',
             frames: [
@@ -31,11 +37,15 @@ export class GameScene extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
-        // TODO add player
+        // add player
         this.player = new Player(this);
         this.player.setGravity(0, 0);
         this.player.setScale(0.5, 0.5);
         this.player.anims.play('fly');
+        // Add alphabird
+        this.alphaBird = new AlphaBird(this);
+        this.alphaBird.setScale(0.5, 0.5);
+        this.alphaBird.anims.play('alphaFly');
         // Add NPC
         this.npc = this.add.group({ runChildUpdate: true });
         this.npc.addMultiple([
@@ -45,37 +55,37 @@ export class GameScene extends Phaser.Scene {
         this.platforms = this.add.group({ runChildUpdate: true });
         this.platforms.addMultiple([
             new Platform(this, 0, 750, "ground"),
-            new Platform(this, 220, 750, "ground"),
-            new Platform(this, 475, 750, "ground"),
-            new Platform(this, 625, 750, "ground")
+            new Platform(this, 400, 750, "ground"),
+            new Platform(this, 800, 750, "ground"),
+            new Platform(this, 1200, 750, "ground")
         ], true);
         // define collisions for bouncing, and overlaps for pickups
         this.physics.world.setBoundsCollision(false, false, true, true);
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.npc, this.platforms);
         this.physics.add.collider(this.player, this.npc);
+        this.physics.add.collider(this.player, this.alphaBird);
         this.cameras.main.setSize(1440, 800);
         this.cameras.main.setBounds(0, 0, 1440, 800);
         this.cameras.main.startFollow(this.player);
-        this.physics.add.overlap(this.player, this.npc, this.die, null, this);
+        this.physics.add.overlap(this.player, this.npc, this.loseLife, null, this);
+        this.physics.add.overlap(this.player, this.alphaBird, this.loseLife, null, this);
         //if NPC goes outside world, delete
+    }
+    loseLife() {
+        let d = new Date().getTime();
+        if (d > this.player.lastHurt + 1000) {
+            this.player.lives -= 1;
+            this.player.lastHurt = d;
+            console.log(this.player.lives);
+            if (this.player.lives < 0) {
+                this.die();
+            }
+        }
     }
     die() {
         console.log("You died, idiot");
         this.scene.start("EndScene");
-    }
-    collectStar(player, star) {
-        this.stars.remove(star, true, true);
-        this.registry.values.score++;
-        // TO DO check if we have all the stars, then go to the end scene
-        if (this.registry.values.score == 4) {
-            console.log("4Stars!");
-            player.setTexture("bmo");
-        }
-        if (this.registry.values.score == 11) {
-            console.log("Congrats");
-            this.scene.start("EndScene");
-        }
     }
     gameLoop() {
         for (let joystick of this.arcade.Joysticks) {

@@ -1,6 +1,8 @@
 export class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene) {
         super(scene, 650, 150, "duif1");
+        this.lives = 3;
+        this.lastHurt = new Date().getTime();
         this.cursors = this.scene.input.keyboard.createCursorKeys();
         // this.poopListener = () => this.handlePoopButton()
         this.scene.add.existing(this);
@@ -17,8 +19,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         // gamepad controls
         this.gamepadInput();
     }
+    //define gamepad controls
     gamepadInput() {
     }
+    //define keyboard controls
     keyboardInput() {
         if (this.cursors.left.isDown) {
             this.setVelocityX(-200);

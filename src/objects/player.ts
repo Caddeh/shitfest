@@ -11,6 +11,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private gamepad: Phaser.Input.Gamepad.Gamepad
     private poopListener: EventListener
     private arcade: Arcade
+    public lives : number = 3
+    public lastHurt = new Date().getTime()
 
     constructor(scene: GameScene) {
         super(scene, 650, 150, "duif1")
@@ -28,21 +30,21 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(0)
         this.setDragX(100)
         this.setDragY(600)
-        
     }
+
     public update(): void {
         // keyboard controls
         this.keyboardInput()
-        
-       // gamepad controls
-       this.gamepadInput()
-
+        // gamepad controls
+        this.gamepadInput()
     }
 
+    //define gamepad controls
     private gamepadInput() : void {
         
     }
 
+    //define keyboard controls
     private keyboardInput(): void {
         if (this.cursors.left.isDown){
             this.setVelocityX(-200)
@@ -62,7 +64,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             console.log("I pooped lol")
         }
     }
-
  }
  
 
