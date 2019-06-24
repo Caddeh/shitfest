@@ -13,6 +13,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private arcade: Arcade
     public lives : number = 3
     public lastHurt = new Date().getTime()
+    public lastPoop = new Date().getTime()
     private gameScene : GameScene
 
     constructor(scene: GameScene) {
