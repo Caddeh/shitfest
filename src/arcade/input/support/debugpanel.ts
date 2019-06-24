@@ -1,3 +1,5 @@
+import { Joystick } from "../joystick"
+
 //#region Template
 const template = document.createElement('template');
 template.innerHTML = `
@@ -70,7 +72,7 @@ root .button-div {
 }
 </style>`
 //#endregion
-import {Joystick} from "../joystick"
+
 export class DebugPanel extends HTMLElement{
     private readonly panelHeight    : number = 120
     private readonly panelSpacing   : number = 10

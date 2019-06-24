@@ -1,4 +1,5 @@
-import {DebugPanel} from "../input/support/debugpanel"
+import { DebugPanel } from "../input/support/debugpanel"
+
 export class Joystick {
 
     private DEBUG           : boolean   = true;
@@ -108,4 +109,3 @@ export class Joystick {
         if(this.DEBUG) this.debugPanel.remove()
     }
 }
-

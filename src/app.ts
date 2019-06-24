@@ -26,17 +26,13 @@ const config: GameConfig = {
     render: { pixelArt: true }
 };
 
-export class Game extends Phaser.Game {
+export class ShitGame extends Phaser.Game {
     public arcade:Arcade
-    public joystickListener : EventListener
     constructor(config: GameConfig) {
         super(config)
-        //this.arcade = new Arcade(this, false)
-
-        //this.joystickListener = (e: Event) => this.initJoystick as CustomEvent
-        document.addEventListener("joystickcreated", this.joystickListener)
+        this.arcade = new Arcade(this, false)
     }
 }
 
-window.addEventListener("load", () => new Game(config))
+window.addEventListener("load", () => new ShitGame(config))
 
