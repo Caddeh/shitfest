@@ -4,8 +4,13 @@ body {
 }
 
 #game {
+<<<<<<< HEAD
     width:1440px;
     height:900px;
+=======
+    width:800px;
+    height:600px;
+>>>>>>> cf45254e9cf63d7b7ee6c29616dd80cb16ce491e
     margin: 0 auto;
 }
 
