@@ -71,6 +71,7 @@ export class GameScene extends Phaser.Scene {
         this.player.setGravity(0, 0)
         this.player.setScale(0.5, 0.5)
         this.player.anims.play('fly')
+        
 
         /*let sun = this.player.game(650, 150, 'duif1', null, {
             plugin: {
@@ -85,9 +86,9 @@ export class GameScene extends Phaser.Scene {
             }
         }) */
         // Add alphabird
-        this.alphaBird = new AlphaBird(this)
+        /*this.alphaBird = new AlphaBird(this)
         this.alphaBird.setScale(0.5, 0.5)
-        this.alphaBird.anims.play('alphaFly')
+        this.alphaBird.anims.play('alphaFly')*/
 
         // Add NPC
         this.npc = this.add.group({ runChildUpdate: true })

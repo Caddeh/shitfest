@@ -8,7 +8,6 @@ export class Npc extends Phaser.Physics.Arcade.Sprite{
         this.scene.add.existing(this)
         this.scene.physics.add.existing(this)
         this.setCollideWorldBounds(true)
-        this.body.onWorldBounds
 
         this.setGravityY(200)
         this.setMaxVelocity(200)
@@ -28,7 +27,7 @@ export class Npc extends Phaser.Physics.Arcade.Sprite{
                } else{
                    this.setVelocityX(125)
                }
-            } , 1500 )
+            } , Phaser.Math.Between(800, 1500) )
         
         
         }

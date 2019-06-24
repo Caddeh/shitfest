@@ -23,7 +23,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.gameScene = scene
 
-
         console.log("creating player");
         let g = this.scene.game as ShitGame
         this.arcade = g.arcade
