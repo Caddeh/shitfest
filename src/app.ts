@@ -3,6 +3,7 @@ import { BootScene } from "./scenes/boot-scene"
 import { StartScene } from "./scenes/start-scene"
 import { GameScene } from "./scenes/game-scene"
 import { EndScene } from "./scenes/end-scene"
+import { Arcade } from "../src/arcade/arcade"
 
 const config: GameConfig = {
     width: 1440,
@@ -16,19 +17,22 @@ const config: GameConfig = {
     },
     physics: {
         default: "arcade",
-        arcade: {
+        matter: {
             debug: false, 
-            gravity: { y: 200 }
-        }
+            gravity: { y: 0 },
+            plugins: { attractors : true }
+        },
     },
     render: { pixelArt: true }
 };
 
-export class Game extends Phaser.Game {
+export class ShitGame extends Phaser.Game {
+    public arcade:Arcade
     constructor(config: GameConfig) {
         super(config)
+        this.arcade = new Arcade(this, false)
     }
 }
 
-window.addEventListener("load", () => new Game(config))
+window.addEventListener("load", () => new ShitGame(config))
 

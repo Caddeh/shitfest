@@ -1,4 +1,10 @@
+import { Arcade } from "../arcade/arcade"
+import { ShitGame } from "../app"
+
 export class StartScene extends Phaser.Scene {
+
+    private arcade : Arcade
+    private nextGameListener : EventListener
 
     constructor() {
         super({key: "StartScene"})
@@ -11,6 +17,11 @@ export class StartScene extends Phaser.Scene {
     }
 
     create(): void {
+        let g = this.game as ShitGame
+        this.arcade = g.arcade
+
+        this.nextGameListener = () => this.nextGame()
+
         this.add.image(0, 0, 'start_screen').setOrigin(0,0)
         
         // add another image here
@@ -23,6 +34,19 @@ export class StartScene extends Phaser.Scene {
         this.input.once('pointerdown', () => {
             this.scene.start('GameScene')
         })
+
+        document.addEventListener("joystick0button0", this.nextGameListener)
+    }
+
+    private nextGame(){
+        document.removeEventListener("joystick0button0", this.nextGameListener)
+        this.scene.start('GameScene')
+    }
+
+    public update(){
+        for (let joystick of this.arcade.Joysticks) {
+            joystick.update()
+        }
     }
 }
 

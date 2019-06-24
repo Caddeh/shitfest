@@ -1,11 +1,12 @@
-import { GameScene } from "../scenes/game-scene";
-import {Joystick} from "../arcade/input/joystick"
+import { Joystick } from "../arcade/input/joystick"
+import { ShitGame } from "../app"
+
 export class Arcade{
     private readonly DEBUG          : boolean = true;
     private joysticks               : Joystick[]
     private readonly REDIRECT_URL   : string = "http://hr-cmgt.github.io/arcade-server"
     private multiplayer             : boolean = false
-    private game                    : GameScene
+    private game                    : ShitGame
     // PROPERTIES
     public get Joysticks()          : Joystick[] { return this.joysticks }
 
@@ -13,7 +14,7 @@ export class Arcade{
      * Creates an arcade 'cabinet' 
      * @param mp 'true' for 2 joystick multiplayer Arcade (default single player)
      */
-    constructor(game: GameScene, mp:boolean = false) {
+    constructor(game: ShitGame, mp:boolean = false) {
         this.game        = game
         this.multiplayer = mp
         this.joysticks   = []
@@ -63,7 +64,7 @@ export class Arcade{
         if(this.DEBUG) { console.log('Game pad disconnected') }
         if(this.DEBUG) this.showStatus("Gamepad is NOT connected. Connect the gamepad and press a button.")
         this.removeJoystick(e.gamepad.index)
-        
+        //this.game.disconnect()
     }
 
     /**
