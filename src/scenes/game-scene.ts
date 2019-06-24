@@ -19,9 +19,12 @@ export class GameScene extends Phaser.Scene {
     private npc : Phaser.GameObjects.Group
     private text : string
     private groundY : number = 550
+    private score: number = 0
+    private scoreText: Phaser.GameObjects.Text
 
     constructor() {
         super({ key: "GameScene" })
+        
     }
 
     init(): void {
@@ -30,7 +33,6 @@ export class GameScene extends Phaser.Scene {
         this.physics.world.bounds.width = 1440
         this.physics.world.bounds.height = 900
     }
-
     
 
     create(): void {
@@ -55,6 +57,7 @@ export class GameScene extends Phaser.Scene {
             repeat: -1
         })
 
+        this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
         // TODO add player
         
         this.player = new Player(this)
@@ -80,8 +83,6 @@ export class GameScene extends Phaser.Scene {
             new Platform (this, 625, 750, "ground")
 
         ], true)
-
-        
         
         // define collisions for bouncing, and overlaps for pickups
         this.physics.world.setBoundsCollision(false, false, true, true)
@@ -106,9 +107,13 @@ export class GameScene extends Phaser.Scene {
         this.poopGroup.add(new Poop(this, this.player.x+20, this.player.y), true)
     }
 
-    private poopHitsEnemy(p:Poop, e:Npc){
-        console.log("poop hits enemy")
-    }
+    // score.scoreText = this.add.text(195, 485, 'Score: 0', { fontSize: '15px', fill: '#000000' });
+    // private poopHitsEnemy(p:Poop, e:Npc){
+    //     this.score += 1
+    //     // this.scoreText.setText('Score: ' + this.score);
+    //     console.log(this.score)
+    //     this.poopGroup.remove(p, true, true)
+    // }
     
     private die() : void {
         console.log("You died, idiot")
@@ -150,7 +155,10 @@ export class GameScene extends Phaser.Scene {
     update(){
         this.player.update()
     
-        
+            private poopHitsEnemy(p:Poop, e:Npc){
+            this.score += 1
+            this.scoreText.setText('Score: ' + this.score);
+            console.log(this.score)
+            this.poopGroup.remove(p, true, true)
+        }
     }
-}
-
