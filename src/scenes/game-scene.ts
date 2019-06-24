@@ -15,7 +15,7 @@ export class GameScene extends Phaser.Scene {
     private joystickListener: EventListener
     private platforms: Phaser.GameObjects.Group
     private stars: Phaser.Physics.Arcade.Group
-    private poops : Phaser.Physics.Arcade.Group
+    private poopGroup : Phaser.GameObjects.Group
     private npc : Phaser.GameObjects.Group
     private text : string
     private groundY : number = 550
@@ -65,6 +65,8 @@ export class GameScene extends Phaser.Scene {
         // Add NPC
         this.npc = this.add.group ({runChildUpdate: true})
 
+        this.poopGroup = this.add.group ({runChildUpdate: true})
+
         this.npc.addMultiple([
             new Npc (this, 400, this.groundY),
             new Npc (this, 500, this.groundY)
@@ -88,6 +90,8 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.npc, this.platforms)
         this.physics.add.collider(this.player, this.npc)
 
+        this.physics.add.overlap(this.poopGroup, this.npc, this.poopHitsEnemy, null, this)
+
         this.cameras.main.setSize(1440, 800)
         this.cameras.main.setBounds(0,0,1440,800)
         this.cameras.main.startFollow(this.player)
@@ -96,6 +100,14 @@ export class GameScene extends Phaser.Scene {
 
         //if NPC goes outside world, delete
         
+    }
+
+    public friendlyBullet(){
+        this.poopGroup.add(new Poop(this, this.player.x+20, this.player.y), true)
+    }
+
+    private poopHitsEnemy(p:Poop, e:Npc){
+        console.log("poop hits enemy")
     }
     
     private die() : void {

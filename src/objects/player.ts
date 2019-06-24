@@ -1,4 +1,4 @@
-import { Poop } from "./poop";
+import { Poop } from '../objects/poop'
 import { Game, Scene } from "phaser";
 import { GameScene } from "../scenes/game-scene";
 import { platform } from "os";
@@ -11,9 +11,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private gamepad: Phaser.Input.Gamepad.Gamepad
     private poopListener: EventListener
     private arcade: Arcade
+    private gameScene : GameScene
 
     constructor(scene: GameScene) {
         super(scene, 650, 150, "duif1")
+
+        this.gameScene = scene
 
         this.cursors = this.scene.input.keyboard.createCursorKeys()
        // this.poopListener = () => this.handlePoopButton()
@@ -33,6 +36,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     public update(): void {
         // keyboard controls
         this.keyboardInput()
+
+        // poop handler
+        this.handlePoopButton()
         
        // gamepad controls
        this.gamepadInput()
@@ -59,9 +65,17 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         if(this.cursors.space.isDown){
-            console.log("I pooped lol")
+            // console.log("I pooped lol")
         }
     }
+
+        private handlePoopButton(){
+            if (this.cursors.space.isDown){
+                console.log("poop")
+               // Poop.shootPoop()
+               this.gameScene.friendlyBullet()
+            }
+        }
 
  }
  
