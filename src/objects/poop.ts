@@ -38,7 +38,7 @@ export class Poop extends Phaser.Physics.Arcade.Sprite{
         }
     }
     
-    function render() {
+    public render() {
         weapon.debug();
     }
 
