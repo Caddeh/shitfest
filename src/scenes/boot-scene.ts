@@ -1,5 +1,3 @@
-import { Bomb } from "../objects/bomb";
-
 export class BootScene extends Phaser.Scene {
 
     private graphics: Phaser.GameObjects.Graphics

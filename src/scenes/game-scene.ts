@@ -63,13 +63,23 @@ export class GameScene extends Phaser.Scene {
 
 
     // add player
-        
         this.player = new Player(this)
         this.player.setGravity(0,0)
         this.player.setScale(0.5,0.5)
         this.player.anims.play('fly')
         
-
+        let sun = this.player.game(650, 150, 'duif1', null, {
+            plugin: {
+                attractors: [
+                    function (bodyA, bodyB) {
+                        return {
+                            x: (bodyA.position.x - bodyB.position.x) * 0.000001,
+                            y: (bodyA.position.y - bodyB.position.y) * 0.000001
+                        }
+                    }
+                ]
+            }
+        })
     // Add alphabird
         this.alphaBird = new AlphaBird(this)
         this.alphaBird.setScale(0.5,0.5)

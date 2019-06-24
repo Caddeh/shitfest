@@ -15,9 +15,10 @@ const config = {
     },
     physics: {
         default: "arcade",
-        arcade: {
+        matter: {
             debug: false,
-            gravity: { y: 0 }
+            gravity: { y: 0 },
+            plugins: { attractors: true }
         },
     },
     render: { pixelArt: true }

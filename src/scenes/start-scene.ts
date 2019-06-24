@@ -1,4 +1,10 @@
+import { Arcade } from "../arcade/arcade"
+import { Game } from "../app"
+
 export class StartScene extends Phaser.Scene {
+
+    private arcade : Arcade
+    private nextGameListener : EventListener
 
     constructor() {
         super({key: "StartScene"})
@@ -11,6 +17,11 @@ export class StartScene extends Phaser.Scene {
     }
 
     create(): void {
+        let g = this.game as Game
+        this.arcade = g.arcade
+
+        //this.nextGameListener = () => this.nextGame()
+
         this.add.image(0, 0, 'start_screen').setOrigin(0,0)
         
         // add another image here

@@ -30,6 +30,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(0)
         this.setDragX(100)
         this.setDragY(600)
+
+        
     }
 
     public update(): void {
