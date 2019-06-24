@@ -77,10 +77,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
         private handlePoopButton(){
-            if (this.cursors.space.isDown){
-                console.log("poop")
-               // Poop.shootPoop()
-               this.gameScene.friendlyBullet()
+            if(this.scene.input.keyboard.checkDown(this.cursors.space, 500)){
+                this.gameScene.friendlyBullet()
+            }
             }
         }
 
