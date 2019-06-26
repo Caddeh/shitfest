@@ -10,11 +10,12 @@ export class Poop extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this) 
         this.setSize(this.displayWidth + 20, this.displayHeight + 20)
 
-        this.setVelocity(0,500)
+        this.setVelocityY(200)
+        this.setAcceleration(0, 1000)
     }
 
     public update(): void {
-        if (this.y > 1100) {
+        if (this.y > 750) {
             this.destroy()
         }
     }

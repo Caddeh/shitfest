@@ -20,6 +20,12 @@ const config: GameConfig = {
         matter: {
             debug: false, 
             gravity: { y: 0 },
+            checkCollision: {
+                up: true,
+                down: true,
+                left: true,
+                right: true
+            },
             plugins: { attractors : true }
         },
     },

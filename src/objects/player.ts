@@ -12,7 +12,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private gamepad: Phaser.Input.Gamepad.Gamepad
     private poopListener: EventListener
     private arcade: Arcade
-    public lives: number = 3
+    public lives: number = 1
     public lastHurt = new Date().getTime()
     public lastPoop = new Date().getTime()
     private gameScene: GameScene
@@ -72,10 +72,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     //define keyboard controls
     private keyboardInput(): void {
         if (this.cursors.left.isDown) {
-            this.setVelocityX(-200)
+            this.setVelocityX(-250)
             this.flipX = false
         } else if (this.cursors.right.isDown) {
-            this.setVelocityX(200)
+            this.setVelocityX(250)
             this.flipX = true
         }
 
