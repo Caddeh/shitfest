@@ -34,6 +34,16 @@ export class Npc extends Phaser.Physics.Arcade.Sprite{
         
         
         }
+    public runAway() : void {
+        function getRandomNumber() {
+            return Phaser.Math.Between (0,1)
+        }
+        if (getRandomNumber() == 1){
+            this.speedX = 250
+        } else {
+            this.speedX = -250
+        }
+    }
 
     public update() : void {
     }

@@ -21,6 +21,7 @@ export class GameScene extends Phaser.Scene {
     private poopGroup: Phaser.GameObjects.Group
     private npcGroup: Phaser.GameObjects.Group
     private text: string
+    private npc : Npc
     private groundY: number = 675
     private alphaBird: AlphaBird
     private score : number = 0
@@ -125,6 +126,7 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.npcGroup)
         this.physics.add.collider(this.player, this.alphaBird)
 
+        this.physics.add.overlap(this.poopGroup, this.npcGroup, this.npc.runAway)
         this.physics.add.overlap(this.poopGroup, this.npcGroup, this.poopHitsEnemy, null, this)
         this.physics.add.overlap(this.poopGroup, this.platforms, )
 
