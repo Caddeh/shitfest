@@ -23,16 +23,15 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.gameScene = scene
 
+        //this makes the controller work, dont touch
         console.log("creating player");
         let g = this.scene.game as ShitGame
         this.arcade = g.arcade
         console.log(this.arcade);
-        
-        
 
+        //add arrowkeys to controls and gamepad button for pooping
         this.cursors = this.scene.input.keyboard.createCursorKeys()
         this.poopListener = () => this.gameScene.friendlyBullet()
-
 
         this.scene.add.existing(this)
         this.scene.physics.add.existing(this)
@@ -61,7 +60,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         for (let joystick of this.arcade.Joysticks) {
             joystick.update()
 
-            // example: read directions as true / false
+            // joystick movement
             if (joystick.Left) this.setVelocityX(-200) , this.flipX = false
             if (joystick.Right) this.setVelocityX(200) , this.flipX = true
             if (joystick.Up) this.setVelocityY(-200)
@@ -89,7 +88,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             // console.log("I pooped lol")
         }
 
-        // SPATIEBALK
+        // Poop when spacebar is pressed, then have a cooldown
         if (this.scene.input.keyboard.checkDown(this.cursors.space, 500)) {
             this.gameScene.friendlyBullet()
         }
