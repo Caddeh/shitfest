@@ -15,6 +15,7 @@ export class Npc extends Phaser.Physics.Arcade.Sprite{
         this.setGravityY(200)
         this.setMaxVelocity(200)
 
+        //Make the NPC randomly walk left and right between 750ms and 1750ms
         setInterval( ()=> {
             let x : number
             
@@ -34,6 +35,7 @@ export class Npc extends Phaser.Physics.Arcade.Sprite{
         
         
         }
+    //When the npc gets hit by poop, run away either left or right
     public runAway() : void {
         function getRandomNumber() {
             return Phaser.Math.Between (0,1)

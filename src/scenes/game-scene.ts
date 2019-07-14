@@ -17,7 +17,6 @@ export class GameScene extends Phaser.Scene {
     private arcade: Arcade
     private joystickListener: EventListener
     private platforms: Phaser.GameObjects.Group
-    private stars: Phaser.Physics.Arcade.Group
     private poopGroup: Phaser.GameObjects.Group
     private npcGroup: Phaser.GameObjects.Group
     private text: string
@@ -30,6 +29,7 @@ export class GameScene extends Phaser.Scene {
     constructor() {
         super({ key: "GameScene" })
 
+        //Make NPC randomly spawn on the ground every 10-20 seconds)
         setInterval(() => {
            this.npcGroup.add (new Npc(this, Phaser.Math.Between(10, 1400), this.groundY))
         }, Phaser.Math.Between(10000, 20000))
@@ -80,24 +80,6 @@ export class GameScene extends Phaser.Scene {
         this.player.setGravity(0, 0)
         this.player.setScale(0.5, 0.5)
         this.player.anims.play('fly')
-        
-
-        /*let sun = this.player.game(650, 150, 'duif1', null, {
-            plugin: {
-                attractors: [
-                    function (bodyA, bodyB) {
-                        return {
-                            x: (bodyA.position.x - bodyB.position.x) * 0.000001,
-                            y: (bodyA.position.y - bodyB.position.y) * 0.000001
-                        }
-                    }
-                ]
-            }
-        }) */
-        // Add alphabird
-        /*this.alphaBird = new AlphaBird(this)
-        this.alphaBird.setScale(0.5, 0.5)
-        this.alphaBird.anims.play('alphaFly')*/
 
         // Add NPC
         this.npcGroup = this.add.group({ runChildUpdate: true })
@@ -116,9 +98,7 @@ export class GameScene extends Phaser.Scene {
             new Platform(this, 1200, 750, "ground")
         ], true)
 
-
-
-        // define collisions for bouncing, and overlaps for pickups
+        // define collisions for walking, losing lives and getting points
         this.physics.world.setBoundsCollision(false, false, true, true)
 
         this.physics.add.collider(this.player, this.platforms)
@@ -137,10 +117,8 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.npcGroup, this.loseLife, null, this)
         this.physics.add.overlap(this.player, this.alphaBird, this.loseLife, null, this)
 
-        //if NPC goes outside world, delete
-
     }
-
+    //Add new poop projectile when player presses spacebar
     public friendlyBullet() {
         this.poopGroup.add(new Poop(this, this.player.x + 20, this.player.y), true)
     }
@@ -157,6 +135,7 @@ export class GameScene extends Phaser.Scene {
         }
     } */
 
+    //When the player hits NPC or Alphabird, lose life
     private loseLife(): void {
         let d = new Date().getTime()
         if (d > this.player.lastHurt + 1000) {
@@ -168,11 +147,13 @@ export class GameScene extends Phaser.Scene {
             }
         }
     }
+    //When the player has no more lives and loses another, go to end scene
     private die(): void {
         console.log("You died, idiot")
         this.scene.start("EndScene")
     }
 
+    //When poop hits npc, remove poop and tally score
     private poopHitsEnemy(p: Poop, e: Npc) {
         console.log("poop hits enemy")
         this.score += 1

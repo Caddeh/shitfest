@@ -9,6 +9,7 @@ export class BootScene extends Phaser.Scene {
     init(){
     }
 
+    //preload all assets, add 'require' if the game cannot continue without
     preload(): void {
         this.load.image('start_screen', require('../assets/start_screen.png'))
         this.load.image('background', require('../assets/background.png'))

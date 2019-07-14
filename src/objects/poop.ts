@@ -14,6 +14,7 @@ export class Poop extends Phaser.Physics.Arcade.Sprite {
         this.setAcceleration(0, 1000)
     }
 
+    //if poop hits ground, remove the poop from the game
     public update(): void {
         if (this.y > 750) {
             this.destroy()
